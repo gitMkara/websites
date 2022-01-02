@@ -1,6 +1,6 @@
 import "./home.scss";
 import Header from "../../components/header/Header";
-import Post from "../../components/post/Post";
+import Posts from "../../components/post/Posts";
 import Sidebar from "../../components/sidebar/Sidebar";
 
 export default function Home() {
@@ -8,7 +8,7 @@ export default function Home() {
     <div className="home">
       <Header />
       <div className="itemContainer">
-        <Post />
+        <Posts />
         <Sidebar />
       </div>
     </div>
