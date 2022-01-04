@@ -1,0 +1,65 @@
+.write{
+    display: flex;
+    flex-direction: column;
+    
+    .writeImg{
+        width: 70vw;
+        height: 300px;
+        object-fit: cover;
+        margin-left: 200px;
+        margin-bottom: 20px;
+        border-radius: 10px;
+    }
+
+    .writeForm{
+        position: relative;
+    }
+    .top{
+        display: flex;
+        justify-content: center;
+        
+
+        label{
+            font-size: 50px;
+            margin-right: 5px;
+            
+        }
+        input{
+            width: 900px;
+            height: 50px;
+            font-size: 35px;
+            border:none;
+            font-family: 'Varela', sans-serif;
+        }
+    }
+    .center{
+        display: flex;
+        justify-content: center;
+
+        textarea{
+            width: 900px;
+            height: 100vh;
+            font-size: 20px;
+            border:none;    
+            margin-left: 55px;
+            margin-top: 10px;
+            font-family: 'Varela', sans-serif;
+            background-color: whitesmoke;
+        }
+    }
+
+    .bottom{
+        position: absolute;
+        top: 50px;
+        right: 10px;
+
+        button{
+            width: 100px;
+            height: 70px;
+            font-size: 20px;
+            color:white;
+            background-color: teal;
+            border-radius: 10px;
+        }
+    }
+}

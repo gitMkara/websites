@@ -32,6 +32,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
+
         .topbarList {
             display: flex;
             list-style: none;
@@ -67,5 +68,18 @@
             cursor: pointer;
             margin-left: 5px;
         }
+        .topbarList {
+            display: flex;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            align-items: center;
+            justify-content: center;
+            .listItem {
+                font-size: 30px;
+                font-weight: 300;
+                margin: 0 10px;
+                cursor: pointer;
+            }
     }
-}
+}}

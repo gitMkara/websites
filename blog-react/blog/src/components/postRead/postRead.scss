@@ -1,0 +1,49 @@
+.postRead {
+    display: flex;
+
+    .itemContainer {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        img {
+            width: 95%;
+            height: 350px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin: 10px 10px 5px 10px;
+        }
+        .title {
+            width: 100%;
+            font-family: "Lora", serif;
+            font-weight: 800;
+            font-size: 30px;
+            text-align: center;
+           
+            .icons {
+                float: right;
+                cursor: pointer;
+                span:first-child {
+                    color: black;
+                    margin-right: 5px;
+                }
+                span:last-child {
+                    color: rgb(236, 113, 113);
+                }
+            }
+        }
+        .userInfo{
+            width: 100%;
+            font-size: 18px;
+            float: left;
+            display: flex;
+            justify-content: space-between;
+        }
+        .text{
+            margin-top: 18px;
+            font-size: 20px;
+            line-height: 30px;
+        }
+    }
+}

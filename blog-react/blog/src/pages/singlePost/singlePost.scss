@@ -1,0 +1,13 @@
+.singlePost{
+
+    .itemContainer{
+        display: flex;
+        .left{
+            flex:8;
+        }
+        
+        .right{
+            flex: 2;
+        }
+    }
+}

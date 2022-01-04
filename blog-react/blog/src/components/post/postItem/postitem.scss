@@ -1,32 +1,62 @@
 .postitem {
-    width: 385px;
+    width: 285px;
     margin: 0 25px 40px 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 
     .postImg {
         width: inherit;
         img {
             width: inherit;
-            height: 385px;
+            height: 285px;
             object-fit: cover;
             border-radius: 10px;
-            
         }
     }
 
-    .postInfo{
+    .postInfo {
         display: flex;
         flex-direction: column;
         align-items: center;
+        font-family: "Varela Round", sans-serif;
+        line-height: 25px;
 
-        .postCats{
+        .postCats {
             width: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
-            
-            .postCat{
-                margin-right: 10px;
+
+            .postCat {
+                margin-right: 5px;
             }
         }
+
+        .postTitle {
+            font-family: "Josefin Sans", sans-serif;
+            font-weight: 800;
+            margin-top: 10px;
+            font-size: 25px;
+            cursor: pointer;
+        }
+
+        .postDate {
+            font-family: "Lora", serif;
+            font-style: italic;
+            font-size: 15px;
+            font-weight: 400;
+        }
+    }
+    .postDesc{
+        font-family: 'Varela', sans-serif;
+        font-size: 15px;
+        line-height: 25px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
     }
 }
