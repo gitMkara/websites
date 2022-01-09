@@ -9,7 +9,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Routes } from "react-router-dom";
 
 function App() {
-  const isUserOnline = false;
+  const isUserOnline = true;
   return (
     <div className="App">
       <Router>

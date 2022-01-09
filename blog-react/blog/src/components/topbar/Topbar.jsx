@@ -6,7 +6,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import { Link } from "react-router-dom";
 
 export default function Topbar() {
-  const isUserOnline = false;
+  const isUserOnline = true;
   return (
     <div className="topBar">
       <div className="left">
@@ -39,7 +39,7 @@ export default function Topbar() {
           </li>
           <li className="listItem">
             {" "}
-            <Link className="routerLink" to="/contact">
+            <Link className="routerLink" to="/write">
               WRITE
             </Link>
           </li>
