@@ -1,6 +1,7 @@
 import "./postitem.scss";
+import { Link } from "react-router-dom";
 
-export default function PostItem() {
+export default function PostItem({ post }) {
   return (
     <div className="postitem">
       <div className="postImg">
@@ -11,18 +12,15 @@ export default function PostItem() {
           <span className="postCat">#Music</span>
           <span className="postCat">#Life</span>
         </div>
-        <span className="postTitle">Post Title</span>
+        <Link to={`/post/${post._id}`}>
+          <span className="postTitle">{post.title}</span>
+        </Link>
         <hr />
-        <span className="postDate">2 Hours</span>
+        <span className="postDate">
+          {new Date(post.createdAt).toUTCString()}
+        </span>
       </div>
-      <p className="postDesc">
-        In publishing and graphic design, Lorem ipsum is a placeholder text
-        commonly used to demonstrate the visual form of a document or a typeface
-        without relying on meaningful content.
-        In publishing and graphic design, Lorem ipsum is a placeholder text
-        commonly used to demonstrate the visual form of a document or a typeface
-        without relying on meaningful content.
-      </p>
+      <p className="postDesc">{post.desc}</p>
     </div>
   );
 }
