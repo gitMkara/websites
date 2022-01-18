@@ -1,13 +1,27 @@
 import "./postRead.scss";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteForeverIcon from "@mui/icons-material/DeleteForever";
+import { useLocation, Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
 export default function PostRead() {
+  const location = useLocation();
+  const path = location.pathname.split("/")[2];
+  const [state, setState] = useState({});
+  useEffect(() => {
+    const fetchPost = async () => {
+      const res = await axios.get("/posts/" + path);
+      setState(res.data);
+    };
+    fetchPost();
+  }, [path]);
+
   return (
     <div className="postRead">
       <div className="itemContainer">
         <img src="../assets/postItem.jpg" alt="postImg" />
         <div className="title">
-          <span>Post Title</span>
+          <span>{state.title}</span>
           <div className="icons">
             <span>
               <EditIcon fontSize="large" />
@@ -19,24 +33,15 @@ export default function PostRead() {
         </div>
         <div className="userInfo">
           <span>
-            Author <b>murat KARA </b>
+            Author{" "}
+            <Link className="routerLink" to={`/?user=${state.username}`}>
+              <b>{state.username} </b>
+            </Link>
           </span>
-          <span>(1 Hour)</span>
+          <span>({new Date(state.createdAt).toUTCString()})</span>
         </div>
         <div className="text">
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus
-            imperdiet, nulla et dictum interdum, nisi lorem egestas odio, vitae
-            scelerisque enim ligula venenatis dolor. Maecenas nisl est, ultrices
-            nec congue eget, auctor vitae massa. Fusce luctus vestibulum augue
-            ut aliquet. Mauris ante ligula, facilisis sed ornare eu, lobortis in
-            odio. Praesent convallis urna a lacus interdum ut hendrerit risus
-            congue. Nunc sagittis dictum nisi, sed ullamcorper ipsum dignissim
-            ac. In at libero sed nunc venenatis imperdiet sed ornare turpis.
-            Donec vitae dui eget tellus gravida venenatis. Integer fringilla
-            congue eros non fermentum. Sed dapibus pulvinar nibh tempor porta.
-            Cras ac leo purus. Mauris quis diam velit.
-          </p>
+          <p>{state.desc}</p>
         </div>
       </div>
     </div>

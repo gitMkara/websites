@@ -2,8 +2,20 @@ import "./sidebar.scss";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import GitHubIcon from "@mui/icons-material/GitHub";
+import { useState, useEffect } from "react";
+import axios from "axios";
+import {Link} from "react-router-dom";
 
 export default function Sidebar() {
+  const [cat, setCat] = useState([]);
+  useEffect(() => {
+    const fetchCat = async () => {
+      const res = await axios.get("/categories");
+      setCat(res.data);
+    };
+    fetchCat();
+  }, []);
+
   return (
     <div className="sidebar">
       <div className="itemContainer">
@@ -17,10 +29,11 @@ export default function Sidebar() {
         </p>
         <h4>CATEGORIES</h4>
         <ul>
-          <li>Life</li>
-          <li>Music</li>
-          <li>Tech</li>
-          <li>Trekking</li>
+          {cat.map((c) => (
+            <Link className="routerLink" to={`/?cat=${c.name}`}>
+              <li>{c.name}</li>
+            </Link>
+          ))}
         </ul>
         <h4>FOLLOW</h4>
         <div className="socialMedias">

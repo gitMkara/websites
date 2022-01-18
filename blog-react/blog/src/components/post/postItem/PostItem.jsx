@@ -12,7 +12,7 @@ export default function PostItem({ post }) {
           <span className="postCat">#Music</span>
           <span className="postCat">#Life</span>
         </div>
-        <Link to={`/post/${post._id}`}>
+        <Link to={`/post/${post._id}`} className="routerLink">
           <span className="postTitle">{post.title}</span>
         </Link>
         <hr />
