@@ -2,10 +2,11 @@ import "./postitem.scss";
 import { Link } from "react-router-dom";
 
 export default function PostItem({ post }) {
+  const PF = 'http://localhost:5000/images/';
   return (
     <div className="postitem">
       <div className="postImg">
-        <img src="../assets/postItem.jpg" alt="postImg" />
+        <img src={PF + post.photo} alt="postImg" />
       </div>
       <div className="postInfo">
         <div className="postCats">

@@ -40,7 +40,7 @@ function App() {
                 <Routes>
                     <Route
                         path='/post/:postId'
-                        element={user ? <SinglePost /> : <Register />}
+                        element={<SinglePost />}
                     />
                 </Routes>
                 <Routes>

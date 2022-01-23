@@ -1,19 +1,47 @@
 import './write.scss';
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
-import { useRef } from 'react';
+import { useContext, useRef, useState } from 'react';
+import axios from 'axios';
+import { Context } from '../../context/Context';
 
 export default function Write() {
     const titleRef = useRef('');
     const descRef = useRef('');
-    const photoRef = useRef('');
+    const [file, setFile] = useState(null);
+    const { user } = useContext(Context);
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        
+
+        const newPost = {
+            username: user.username,
+            title: titleRef.current.value,
+            desc: descRef.current.value,
+        };
+        if (file) {
+            const data = new FormData();
+            const filename = Date.now() + file.name;
+            data.append('name', filename);
+            data.append('file', file);
+            newPost.photo = filename;
+            try {
+                await axios.post('/upload', data);
+            } catch (error) {}
+        }
+        try {
+            const res = await axios.post('/posts', newPost);
+            window.location.replace('/post/' + res.data._id);
+        } catch (error) {}
     };
     return (
         <div className='write'>
-            <img className='writeImg' src='../assets/postItem.jpg' alt='banner'/>
+            {file && (
+                <img
+                    className='writeImg'
+                    src={URL.createObjectURL(file)}
+                    alt='banner'
+                />
+            )}
             <form className='writeForm' onSubmit={handleSubmit}>
                 <div className='top'>
                     <label htmlFor='fileInput'>
@@ -21,8 +49,8 @@ export default function Write() {
                     </label>
                     <input
                         type={'file'}
-                        ref={photoRef}
                         id='fileInput'
+                        onChange={(e) => setFile(e.target.files[0])}
                         style={{ display: 'none' }}
                     />
                     <input
