@@ -2,6 +2,8 @@ const router = require('express').Router();
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const e = require('express');
+
 //REGISTER
 router.post('/register', async (req, res) => {
     try {
@@ -34,11 +36,15 @@ router.post('/login', async (req, res) => {
         );
         if (isPassTrue) {
             const { password, ...others } = user._doc;
-            const accessToken = jwt.sign(others, process.env.JWT_TOKEN, {
-                expiresIn: '20s',
-            });
+            const accessToken = jwt.sign(
+                { usename: user.username, id: user._id },
+                process.env.JWT_TOKEN,
+                {
+                    expiresIn: '20s',
+                }
+            );
             const refreshToken = jwt.sign(
-                others,
+                { usename: user.username, id: user._id },
                 process.env.JWT_REFRESH_TOKEN
             );
 
@@ -69,17 +75,52 @@ router.post('/refresh', (req, res) => {
         if (err) return res.status(401).json('There is some error.');
 
         refreshTokens = refreshTokens.filter((token) => token !== refreshToken);
-        const { password, ...others } = user;
-        const newAccessToken = jwt.sign(others, process.env.JWT_TOKEN, {
-            expiresIn: '20s',
-        });
-        const newRefreshToken = jwt.sign(others, process.env.JWT_REFRESH_TOKEN);
+
+        const newAccessToken = jwt.sign(
+            { usename: user.username, id: user.id },
+            process.env.JWT_TOKEN,
+            {
+                expiresIn: '20s',
+            }
+        );
+        const newRefreshToken = jwt.sign(
+            { usename: user.username, id: user.id },
+            process.env.JWT_REFRESH_TOKEN
+        );
         refreshTokens.push(newRefreshToken);
         res.status(200).json({
             accessToken: newAccessToken,
             refreshToken: newRefreshToken,
         });
     });
+});
+const verify = (req, res, next) => {
+    const authHeader = req.headers.authorization;
+
+    if (authHeader) {
+        const token = authHeader;
+
+        jwt.verify(token, process.env.JWT_TOKEN, (err, user) => {
+            if (err) {
+                res.status(401).json('TOKEN IS INVALID');
+            } else {
+                req.user = user;
+                next();
+            }
+        });
+    } else {
+        res.status(402).json('You are not authenticated.');
+    }
+};
+//LOGOUT
+router.post('/logout', verify, (req, res) => {
+    try {
+        const refreshToken = req.body.token;
+        refreshTokens = refreshTokens.filter((key) => key != refreshToken);
+        res.status(200).json(req.user);
+    } catch (error) {
+        res.status(500).json(error);
+    }
 });
 
 module.exports = router;

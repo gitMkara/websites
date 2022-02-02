@@ -28,20 +28,6 @@ router.put('/:id', async (req, res) => {
     }
 });
 
-//DELETE
-// router.delete("/:id", async (req, res) => {
-//   if (req.body.userId === req.params.id) {
-//     try {
-//       await User.findOneAndDelete(req.params.id);
-//       res.status(200).json("User's been deleted.");
-//     } catch (error) {
-//       res.status(500).json(error);
-//     }
-//   } else {
-//     res.status(401).json("Invalid UserID");
-//   }
-// });
-
 const verify = (req, res, next) => {
     const authHeader = req.headers.authorization;
 
@@ -63,9 +49,7 @@ const verify = (req, res, next) => {
 
 router.delete('/:id', verify, async (req, res) => {
     try {
-        console.log(req.user._id);
-
-        if (req.user._id === req.params.id) {
+        if (req.user.id === req.params.id) {
             try {
                 //await User.findOneAndDelete({_id: req.params.id});
                 res.status(200).json("User's been deleted.");
@@ -92,3 +76,4 @@ router.get('/:id', async (req, res) => {
 });
 
 module.exports = router;
+
